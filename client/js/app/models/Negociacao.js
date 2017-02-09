@@ -21,4 +21,13 @@ class Negociacao {
 	get valor() {
 		return this._valor;
 	}
+
+	stringfy() {
+
+		return `{
+				 "data": "${this.data}", 
+				 "quantidade": ${this._quantidade}, 
+				 "valor": ${this._valor}
+				}`;
+	}
 }
