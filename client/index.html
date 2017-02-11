@@ -13,12 +13,12 @@
 
     <div id="mensagemView"></div>
 
-    <form class="form" onsubmit="negociacaoController.adiciona(event)">
+    <form class="form">
         
         <div class="form-group">
             <label for="data">Data</label>
-            <input type="date" id="data" class="form-control" required autofocus/>        
-        </div>    
+            <input type="text" placeholder="dd/mm/aaaa" id="data" class="form-control" required autofocus/> 
+        </div>   
         
         <div class="form-group">
             <label for="quantidade">Quantidade</label>
@@ -34,10 +34,7 @@
     </form>
     
     <div class="text-center">
-        <button  onclick="negociacaoController.importaNegociacoes()" class="btn btn-primary text-center" type="button">
-            Importar Negociações
-        </button>
-        <button onclick="negociacaoController.apaga()" class="btn btn-primary text-center" type="button">
+        <button class="btn btn-primary text-center" type="button">
             Apagar
         </button>
     </div> 
@@ -45,22 +42,14 @@
     <br>
     
     <div id="negociacoesView"></div>
-
-    <script type="text/javascript" src="js/app/models/Negociacao.js"></script>
-    <script type="text/javascript" src="js/app/models/ListaNegociacoes.js"></script>
-    <script type="text/javascript" src="js/app/models/Mensagem.js"></script>
-    <script type="text/javascript" src="js/app/views/View.js"></script>
-    <script type="text/javascript" src="js/app/views/NegociacoesView.js"></script>
-    <script type="text/javascript" src="js/app/views/MensagemView.js"></script>
-    <script type="text/javascript" src="js/app/helpers/DateHelper.js"></script>
-    <script type="text/javascript" src="js/app/helpers/Bind.js"></script>
-    <script type="text/javascript" src="js/app/services/HttpService.js"></script>
-    <script type="text/javascript" src="js/app/services/ProxyFactory.js"></script>
-    <script type="text/javascript" src="js/app/services/NegociacaoService.js"></script>
-    <script type="text/javascript" src="js/app/controllers/NegociacaoController.js"></script>
-
+  
+    <script type="text/javascript" src="node_modules/systemjs/dist/system.js"></script>
+  
     <script type="text/javascript">
-        let negociacaoController = new NegociacaoController();
+        System.defaultJSExtensions = true;
+        System.import('js/app/boot').catch(function(err) {
+            console.error(err);
+        });
     </script>
 
 </body>

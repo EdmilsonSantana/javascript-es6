@@ -1,32 +1,81 @@
-class HTTPService {
+'use strict';
 
-	/*
-		0: requisição ainda não iniciada 
-	    1: conexão estabelecida com o servidor
-		2: requisição recebida
-		3: processando requisição
-		4: requisição concluída e resposta esta pronta
-	*/
-	get(url) {
+System.register([], function (_export, _context) {
+	"use strict";
 
-		return new Promise((resolve, reject) => {
-			
-			let xhr = new XMLHttpRequest();
+	var _createClass, HttpService;
 
-			xhr.open('GET', url);
+	function _classCallCheck(instance, Constructor) {
+		if (!(instance instanceof Constructor)) {
+			throw new TypeError("Cannot call a class as a function");
+		}
+	}
 
-			xhr.onreadystatechange = () => {
-						
-				if(xhr.readyState == XMLHttpRequest.DONE) {
-
-					if(xhr.status == 200) {
-						resolve(JSON.parse(xhr.responseText));
-					} else {
-						reject(xhr.responseText);
+	return {
+		setters: [],
+		execute: function () {
+			_createClass = function () {
+				function defineProperties(target, props) {
+					for (var i = 0; i < props.length; i++) {
+						var descriptor = props[i];
+						descriptor.enumerable = descriptor.enumerable || false;
+						descriptor.configurable = true;
+						if ("value" in descriptor) descriptor.writable = true;
+						Object.defineProperty(target, descriptor.key, descriptor);
 					}
 				}
-			};
-			xhr.send();
-		});
-	}
-}
+
+				return function (Constructor, protoProps, staticProps) {
+					if (protoProps) defineProperties(Constructor.prototype, protoProps);
+					if (staticProps) defineProperties(Constructor, staticProps);
+					return Constructor;
+				};
+			}();
+
+			_export('HttpService', HttpService = function () {
+				function HttpService() {
+					_classCallCheck(this, HttpService);
+				}
+
+				_createClass(HttpService, [{
+					key: 'get',
+					value: function get(url) {
+						var _this = this;
+
+						return fetch(url).then(function (res) {
+							return _this._handleErrors(res);
+						}).then(function (res) {
+							return res.json();
+						});
+					}
+				}, {
+					key: '_handleErrors',
+					value: function _handleErrors(res) {
+						if (!res.ok) {
+							throw new Error(res.statusText);
+						}
+						return res;
+					}
+				}, {
+					key: 'post',
+					value: function post(url, dado) {
+						var _this2 = this;
+
+						return fetch(url, {
+							headers: { 'Content-Type': 'application/json' },
+							method: 'post',
+							body: JSON.stringify(dado)
+						}).then(function (res) {
+							return _this2._handleErrors(res);
+						});
+					}
+				}]);
+
+				return HttpService;
+			}());
+
+			_export('HttpService', HttpService);
+		}
+	};
+});
+//# sourceMappingURL=HttpService.js.map
